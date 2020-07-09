@@ -1,15 +1,9 @@
-import { BigInt } from "@graphprotocol/graph-ts";
-import {
-  Contract,
-  Approval,
-  Transfer as TransferEvent,
-} from "../generated/Contract/Contract";
-import { LogNote as LogNoteEvent } from "../generated/Pot/Pot";
-import { Transfer, LogNote } from "../generated/schema";
+import { BigInt, ByteArray, Bytes } from "@graphprotocol/graph-ts";
+import { Transfer as TransferEvent } from "../generated/Contract/Contract";
+import { LogNote } from "../generated/Pot/Pot";
+import { Transfer, Join, Exit } from "../generated/schema";
 
 export function handleTransfer(event: TransferEvent): void {
-  // event Transfer(address indexed src, address indexed dst, uint wad);
-
   let transferId = event.address
     .toHexString()
     .concat(event.transaction.hash.toHexString());
@@ -23,28 +17,42 @@ export function handleTransfer(event: TransferEvent): void {
   transfer.save();
 }
 
-export function handleApproval(event: Approval): void {}
+export function handleJoinEvent(event: LogNote): void {
+  let joinId = event.params.usr
+    .toHexString()
+    .concat("-join-")
+    .concat(event.transaction.hash.toHexString());
+  let join = new Join(joinId);
+  join.timestamp = event.block.timestamp.toString();
+  join.address = event.params.usr;
 
-export function handleLogNote(event: LogNoteEvent): void {
-  //   event LogNote(
-  //     bytes4   indexed  sig,
-  //     address  indexed  usr,
-  //     bytes32  indexed  arg1,
-  //     bytes32  indexed  arg2,
-  //     bytes             data
-  // ) anonymous;
+  let data = event.params.data;
+  let dataString = data.toHexString();
+  let wadString = dataString.substr(10, 64);
+  let wadBytes = ByteArray.fromHexString(wadString).reverse();
+  let wad = BigInt.fromSignedBytes(wadBytes as Bytes);
+  join.wad = wad;
 
-  let noteId = event.transaction.hash.toHexString();
+  join.save();
+}
 
-  let note = new LogNote(noteId);
-  note.timestamp = event.block.timestamp.toString();
-  note.sig = event.params.sig;
-  note.usr = event.params.usr;
-  note.arg1 = event.params.arg1;
-  note.arg2 = event.params.arg2;
-  note.data = event.params.data;
+export function handleExitEvent(event: LogNote): void {
+  let exitId = event.params.usr
+    .toHexString()
+    .concat("-exit-")
+    .concat(event.transaction.hash.toHexString());
+  let exit = new Join(exitId);
+  exit.timestamp = event.block.timestamp.toString();
+  exit.address = event.params.usr;
 
-  note.save();
+  let data = event.params.data;
+  let dataString = data.toHexString();
+  let wadString = dataString.substr(10, 64);
+  let wadBytes = ByteArray.fromHexString(wadString).reverse();
+  let wad = BigInt.fromSignedBytes(wadBytes as Bytes);
+  exit.wad = wad;
+
+  exit.save();
 }
 
 // let contract = Contract.bind(event.address)

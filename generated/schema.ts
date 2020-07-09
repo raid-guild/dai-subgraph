@@ -79,91 +79,6 @@ export class Transfer extends Entity {
   }
 }
 
-export class LogNote extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save LogNote entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save LogNote entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("LogNote", id.toString(), this);
-  }
-
-  static load(id: string): LogNote | null {
-    return store.get("LogNote", id) as LogNote | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get timestamp(): string {
-    let value = this.get("timestamp");
-    return value.toString();
-  }
-
-  set timestamp(value: string) {
-    this.set("timestamp", Value.fromString(value));
-  }
-
-  get sig(): Bytes {
-    let value = this.get("sig");
-    return value.toBytes();
-  }
-
-  set sig(value: Bytes) {
-    this.set("sig", Value.fromBytes(value));
-  }
-
-  get usr(): Bytes {
-    let value = this.get("usr");
-    return value.toBytes();
-  }
-
-  set usr(value: Bytes) {
-    this.set("usr", Value.fromBytes(value));
-  }
-
-  get arg1(): Bytes {
-    let value = this.get("arg1");
-    return value.toBytes();
-  }
-
-  set arg1(value: Bytes) {
-    this.set("arg1", Value.fromBytes(value));
-  }
-
-  get arg2(): Bytes {
-    let value = this.get("arg2");
-    return value.toBytes();
-  }
-
-  set arg2(value: Bytes) {
-    this.set("arg2", Value.fromBytes(value));
-  }
-
-  get data(): Bytes {
-    let value = this.get("data");
-    return value.toBytes();
-  }
-
-  set data(value: Bytes) {
-    this.set("data", Value.fromBytes(value));
-  }
-}
-
 export class Join extends Entity {
   constructor(id: string) {
     super();
@@ -201,6 +116,24 @@ export class Join extends Entity {
 
   set timestamp(value: string) {
     this.set("timestamp", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get wad(): BigInt {
+    let value = this.get("wad");
+    return value.toBigInt();
+  }
+
+  set wad(value: BigInt) {
+    this.set("wad", Value.fromBigInt(value));
   }
 }
 
@@ -241,5 +174,23 @@ export class Exit extends Entity {
 
   set timestamp(value: string) {
     this.set("timestamp", Value.fromString(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    return value.toBytes();
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get wad(): BigInt {
+    let value = this.get("wad");
+    return value.toBigInt();
+  }
+
+  set wad(value: BigInt) {
+    this.set("wad", Value.fromBigInt(value));
   }
 }

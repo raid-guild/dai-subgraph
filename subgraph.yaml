@@ -21,10 +21,6 @@ dataSources:
         - name: Contract
           file: ./abis/Contract.json
       eventHandlers:
-        # - event: Approval(indexed address,indexed address,uint256)
-        #   handler: handleApproval
-        # - event: LogNote(indexed bytes4,indexed address,indexed bytes32,indexed bytes32,bytes)
-        #   handler: handleLogNote
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/mapping.ts
@@ -46,5 +42,10 @@ dataSources:
           file: ./abis/Pot.json
       eventHandlers:
         - event: LogNote(indexed bytes4,indexed address,indexed bytes32,indexed bytes32,bytes)
-          handler: handleLogNote
+          topic0: "0x049878f300000000000000000000000000000000000000000000000000000000"
+          handler: handleJoinEvent
+        - event: LogNote(indexed bytes4,indexed address,indexed bytes32,indexed bytes32,bytes)
+          topic0: "0x7f8661a100000000000000000000000000000000000000000000000000000000"
+          handler: handleExitEvent
       file: ./src/mapping.ts
+

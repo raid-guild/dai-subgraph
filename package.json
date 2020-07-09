@@ -4,10 +4,10 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ raid-guild/mcd-dai-test",
-    "create-local": "graph create --node http://localhost:8020/ raid-guild/mcd-dai-test",
-    "remove-local": "graph remove --node http://localhost:8020/ raid-guild/mcd-dai-test",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 raid-guild/mcd-dai-test"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ raid-guild/dai-subgraph",
+    "create-local": "graph create --node http://localhost:8020/ raid-guild/dai-subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ raid-guild/dai-subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 raid-guild/dai-subgraph"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.17.1",

@@ -1,0 +1,16 @@
+{
+  "name": "mcd-dai-test",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ raid-guild/mcd-dai-test",
+    "create-local": "graph create --node http://localhost:8020/ raid-guild/mcd-dai-test",
+    "remove-local": "graph remove --node http://localhost:8020/ raid-guild/mcd-dai-test",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 raid-guild/mcd-dai-test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.17.1",
+    "@graphprotocol/graph-ts": "0.17.0"
+  }
+}

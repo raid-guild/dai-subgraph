@@ -5,3 +5,29 @@ type Transfer @entity {
   dst: Bytes!
   wad: BigInt!
 }
+
+type LogNote @entity {
+  id: ID!
+  timestamp: String!
+  sig: Bytes!
+  usr: Bytes!
+  arg1: Bytes!
+  arg2: Bytes!
+  data: Bytes!
+}
+
+type Join @entity {
+  id: ID!
+  timestamp: String!
+  #  src: Bytes!
+  #  dst: Bytes!
+  #  wad: BigInt!
+}
+
+type Exit @entity {
+  id: ID!
+  timestamp: String!
+  #  src: Bytes!
+  #  dst: Bytes!
+  #  wad: BigInt!
+}

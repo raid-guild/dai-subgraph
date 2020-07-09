@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x6b175474e89094c44da98b954eedeac495271d0f"
       abi: Contract
+      startBlock: 8928160
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.3
@@ -22,4 +23,24 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
+      file: Contract/Contract.wasm
+  - kind: ethereum/contract
+    name: Pot
+    network: mainnet
+    source:
+      address: "0x197E90f9FAD81970bA7976f33CbD77088E5D7cf7"
+      abi: Pot
+      startBlock: 8928160
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities:
+        - LogNote
+      abis:
+        - name: Pot
+          file: Pot/abis/Pot.json
+      eventHandlers:
+        - event: LogNote(indexed bytes4,indexed address,indexed bytes32,indexed bytes32,bytes)
+          handler: handleLogNote
       file: Contract/Contract.wasm
